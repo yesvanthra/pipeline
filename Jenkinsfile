@@ -3,19 +3,9 @@ node {
     checkout scm
   }
   stage('SonarQube Analysis') {
-    def scannerHome = tool 'sonar-scanner';
+    def scannerHome = tool 'SonarScanner';
     withSonarQubeEnv() {
-       sh '''
-
-                            /opt/sonar-scanner/bin/sonar-scanner \
-
-                            -Dsonar.projectKey=pipeline \
-
-                            -Dsonar.host.url=http://172.19.0.3:9000 \
-
-                            -Dsonar.login=$SONARQUBE_CRED_USR -Dsonar.password=$SONARQUBE_CRED_PSW
-
-                            '''
+      sh "${scannerHome}/bin/sonar-scanner"
     }
   }
 }
